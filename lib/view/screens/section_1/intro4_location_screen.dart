@@ -40,6 +40,7 @@ class _Intro4LocationScreenState extends State<Intro4LocationScreen> {
       // ✅ Print location to console
       print("✅ Latitude: ${position.latitude}");
       print("✅ Longitude: ${position.longitude}");
+      print("✅ Longitude");
 
     } else if (permission == PermissionStatus.denied) {
       ScaffoldMessenger.of(context).showSnackBar(

@@ -68,10 +68,10 @@ class _MyAppState extends State<MyApp> {
   //   getToken();
   // }
 
-  // getToken() async {
-  //   String? token = await FirebaseMessaging.instance.getToken();
-  //   print("token = $token ");
-  // }
+  getToken() async {
+    String? token = await FirebaseMessaging.instance.getToken();
+    print("token = $token ");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +86,7 @@ class _MyAppState extends State<MyApp> {
             Locale('ar'),
           ],
 
+
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
@@ -98,11 +99,14 @@ class _MyAppState extends State<MyApp> {
      //   home:  SplashScreen(),
        home:  HomeScreen(),
 
+
      //  home:  LoginWorkerScreen(),
 
 
         );
+
       },
+
     );
   }
 }
