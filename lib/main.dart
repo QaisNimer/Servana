@@ -85,6 +85,7 @@ class _MyAppState extends State<MyApp> {
             Locale('en'),
             Locale('ar'),
           ],
+
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
@@ -94,8 +95,8 @@ class _MyAppState extends State<MyApp> {
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: themeProvider.themeMode,
-        home:  SplashScreen(),
-      //   home:  HomeScreen(),
+     //   home:  SplashScreen(),
+       home:  HomeScreen(),
 
      //  home:  LoginWorkerScreen(),
 
