@@ -1,52 +1,82 @@
-# 📱 Mobile App Project
+# 🚀 Servana App
 
-Welcome to the official repository for our **Mobile Application Project**, developed using **Flutter** for the frontend and supported by a custom-built backend API.
-
----
-
-## 🔧 Project Structure
-
-This project is a collaboration between two main teams:
-
-### 🎯 Frontend (Flutter) Team
-- **Duha**
-- **Alaa**
-
-Responsibilities:
-- Designing and building responsive, user-friendly UI
-- Integrating with backend APIs
-- Managing app state and user experience
-
-### 🛠️ Backend Team
-- **Qais**
-- **Anas**
-
-Responsibilities:
-- Developing and maintaining RESTful APIs
-- Handling authentication and business logic
-- Managing databases and server-side integrations
-- Ensuring seamless communication between frontend and backend
+Servana is a Flutter-based mobile application that connects clients with workers to perform various services with real-time updates, payment tracking, and reviews.
 
 ---
 
-## 🚀 Features (In Progress / Planned)
+## 👥 Team Members
 
-- User Authentication (Login, Signup)
-- Request Management (Client ↔ Worker Flow)
-- In-App Notifications
-- Wallet and Promo Code System
-- Location Services Integration
-- Rating and Review System
-- Multi-language Support (EN/AR)
-- Chat & Contact via WhatsApp
+| Name | Role              |
+|------|-------------------|
+| Duha | Flutter Developer |
+| Alaa | Flutter Developer |
 
 ---
 
-## 📦 Tech Stack
+## 🔧 Getting Started – For Any Developer
 
-| Layer     | Technology      |
-|-----------|------------------|
-| Frontend  | Flutter          |
-| Backend   | ASP.NET Core Web API |
-| Database  | SQL Server       |
-| Version Control | Git & GitHub |
+If you want to run this project on your local machine, follow these steps:
+
+---
+
+### ✅ 1. Prerequisites
+
+- Flutter SDK → [Install guide](https://docs.flutter.dev/get-started/install)
+- Git installed
+- Android Studio or VS Code
+
+---
+
+### ✅ 2. Clone the Repository
+
+```bash
+git clone https://github.com/QaisNimer/Servana.git
+cd Servana
+
+
+
+
+✅ 3. Checkout Your Branch
+Choose your assigned branch and switch to it:
+
+▶ Duha:
+git checkout duha-branch
+
+▶ Alaa:
+git checkout alaa-branch
+
+✅ 4. Pull the Latest Changes (Before You Start Work)
+git pull origin duha-branch    # or alaa-branch
+
+✅ 5. Make Changes and Push
+After you finish coding:
+git add .
+git commit -m "Describe your changes"
+git push
+
+🔁 If Alaa Needs Duha’s Code:
+git checkout alaa-branch
+git fetch
+git merge duha-branch
+
+# If there are conflicts:
+# Open the files, resolve the conflict text
+git add .
+git commit -m "Merge duha-branch into alaa-branch"
+git push
+
+✅ 6. Merging into Main (For Final Version)
+Once work is complete:
+git checkout main
+git merge duha-branch
+git merge alaa-branch
+git push
+
+📁 Folder Structure:
+Servana/
+├── lib/
+├── android/
+├── ios/
+├── pubspec.yaml
+├── README.md
+
