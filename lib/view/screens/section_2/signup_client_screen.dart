@@ -107,6 +107,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                     borderRadius: BorderRadius.circular(20),
                   ),
+
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
