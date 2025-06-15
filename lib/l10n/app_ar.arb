@@ -79,5 +79,9 @@
   "pluming": "السباكة",
   "electrical": "الكهرباء",
   "gardner": "البستاني",
-  "paint": "الدهان"
+  "paint": "الدهان",
+  "cleaning": "تنظيف",
+  "male": "ذكر",
+  "female": "أنثى",
+  "gender": "الجنس"
 }

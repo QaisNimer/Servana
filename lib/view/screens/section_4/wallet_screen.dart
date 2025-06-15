@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:servana/view/screens/section_3/home_screen.dart';
 
 class WalletScreen extends StatefulWidget {
   @override
@@ -17,36 +16,38 @@ class _WalletScreenState extends State<WalletScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bgColor = isDark ? Colors.black : Colors.white;
-
     return Scaffold(
-      backgroundColor: bgColor,
-    //  backgroundColor: Colors.grey[100],
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title:  Text("Wallet"),
-        centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.transparent,
         elevation: 0,
+        title: const Text("Wallet"),
+        centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Container(
-            color: Colors.teal,
-            padding: const EdgeInsets.only(bottom: 16),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFEAF6FF), Color(0xFF86D3EC)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SafeArea(
+          child: SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(height: 7),
+                const SizedBox(height: 10),
                 Image.asset(
                   'assets/images/wallet.png',
                   height: 170,
                 ),
-                // const SizedBox(height: 3),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: Colors.orange[50],
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(color: Colors.black12, blurRadius: 10),
@@ -70,83 +71,112 @@ class _WalletScreenState extends State<WalletScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ElevatedButton.icon(
+                          ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.teal,
+                              backgroundColor: const Color(0xFF0D47A1),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
                             ),
-                            icon: const Icon(Icons.add),
-                            label: const Text("Add Money"),
                             onPressed: () {},
+                            child: const Text(
+                              "Add Money",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                           const SizedBox(width: 10),
-                          OutlinedButton.icon(
-                            icon: const Icon(Icons.arrow_back),
-                            label: const Text("Withdraw"),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => HomeScreen(),
-                                ),
-                              );
-                            },
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFFD1F3FF),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            onPressed: () {},
+                            child: const Text(
+                              "Withdraw",
+                              style: TextStyle(color: Colors.black87),
+                            ),
                           ),
                         ],
                       ),
                     ],
                   ),
                 ),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Transaction History",
+                      style: TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: transactions.length,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  itemBuilder: (context, index) {
+                    final tx = transactions[index];
+                    final bool isPositive = tx['amount'] > 0;
+
+                    return Card(
+                      color:  Colors.white,
+                      elevation: 3,
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
+                        leading: CircleAvatar(
+                          radius: 24,
+                          backgroundColor: isPositive
+                              ? const Color(0xFFB2DFDB)
+                              : const Color(0xFFFFCDD2),
+                          child: Icon(
+                            isPositive
+                                ? Icons.arrow_upward
+                                : Icons.arrow_downward,
+                            color: isPositive
+                                ? const Color(0xFF00695C)
+                                : const Color(0xFFC62828),
+                          ),
+                        ),
+                        title: Text(
+                          tx['id'],
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                        subtitle: Text(
+                          tx['date'],
+                          style: TextStyle(color: Colors.grey[700]),
+                        ),
+                        trailing: Text(
+                          "${isPositive ? '+' : '-'}\$${tx['amount'].abs()}",
+                          style: TextStyle(
+                            color: isPositive
+                                ? const Color(0xFF2E7D32)
+                                : const Color(0xFFD32F2F),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 20),
               ],
             ),
           ),
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Transaction History",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-          Expanded(
-            child: ListView.builder(
-              itemCount: transactions.length,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              itemBuilder: (context, index) {
-                final tx = transactions[index];
-                final bool isPositive = tx['amount'] > 0;
-
-                return Card(
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: isPositive ? Colors.green : Colors.red,
-                      child: Icon(
-                        isPositive ? Icons.add : Icons.remove,
-                        color: Colors.white,
-                      ),
-                    ),
-                    title: Text(tx['id']),
-                    subtitle: Text(tx['date']),
-                    trailing: Text(
-                      "${isPositive ? '+' : '-'}\$${tx['amount'].abs()}",
-                      style: TextStyle(
-                        color: isPositive ? Colors.green : Colors.red,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

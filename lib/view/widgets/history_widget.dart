@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:servana/view/screens/section_4/rating_screen.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HistoryWidget extends StatelessWidget {
   final String title;
@@ -9,22 +7,15 @@ class HistoryWidget extends StatelessWidget {
   final String description1;
   final String date;
   final String? description2;
-
-  // final double rating;
   final String price;
-//  final VoidCallback onPressed;
 
   const HistoryWidget({
     required this.title,
     required this.description,
     required this.description1,
     required this.date,
-     this.description2,
-    //  required this.imagePath,
-    //  required this.rating,
+    this.description2,
     required this.price,
-   // required this.onPressed,
-    // this.whatsappNumber,
     super.key,
   });
 
@@ -32,20 +23,22 @@ class HistoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 370,
-      margin: const EdgeInsets.only(right: 10),
-      padding: const EdgeInsets.all(12),
+      margin: const EdgeInsets.only(right: 10, bottom: 12),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.teal),
+        color: Colors.white, // ✅ soft sky blue
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 3),
+          ),
+        ],
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 👤 Avatar
-          // CircleAvatar(
-          //   radius: 40,
-          //   backgroundImage: AssetImage(imagePath),
-          // ),
           const SizedBox(width: 12),
 
           // 📋 Info Section
@@ -53,53 +46,69 @@ class HistoryWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Name
+                // 🧑‍🔧 Title
                 Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
+                    color: Color(0xFF0D47A1),
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
+
+                const SizedBox(height: 5),
+
+                // 🧾 Description1
                 Text(
                   description1,
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: Colors.orangeAccent,
+                    color: Colors.black87,
                   ),
+                  overflow: TextOverflow.ellipsis,
                 ),
-                Text(
-                  date,
-                  style:  TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.grey,
-                  ),
+
+                const SizedBox(height: 25),
+
+                // 📅 Date
+                Row(
+                  children: [
+                    Text(
+                      date,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    SizedBox(width: 18,),
+                    Text(
+                      'JD $price/hr',
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 6),
 
-                const SizedBox(height: 6),
+                const SizedBox(height: 8),
 
-                //  Row(),
                 // 💵 Price
-                Text(
-                  '\$ $price/hr',
-                  style: const TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.teal,
-                  ),
-                ),
+
               ],
             ),
           ),
 
           const SizedBox(width: 10),
 
+          // 📍 Buttons
           Column(
             children: [
+              // ✅ Rate Worker Button
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -108,8 +117,8 @@ class HistoryWidget extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.teal,
-                  minimumSize: const Size(90, 35),
+                  backgroundColor: Color(0xFF0D47A1),
+                  minimumSize: const Size(100, 36),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -120,23 +129,29 @@ class HistoryWidget extends StatelessWidget {
                 ),
               ),
 
+              const SizedBox(height: 10),
 
-              SizedBox(height: 8),
-
-              // 🟠 Description Button
+              // 📝 Description Button
               ElevatedButton(
-                onPressed: (){},
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                  minimumSize: const Size(90, 35),
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFDAF6FF),
+                  elevation: 0,
+                  side: BorderSide(color: Color(0xFFDAF6FF), width: 1),
+                  minimumSize: const Size(100, 36),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
                 child: Text(
                   description,
-                  style: const TextStyle(fontSize: 14, color: Colors.orange),
-                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.black),
+                  ),
+                  //overflow: TextOverflow.ellipsis,
                 ),
-              ),
+             // ),
             ],
           ),
         ],

@@ -19,7 +19,9 @@ class _Intro4LocationScreenState extends State<Intro4LocationScreen> {
     if (!serviceEnabled) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("📍 Location services are disabled. Please enable them."),
+          content: Text(
+            "📍 Location services are disabled. Please enable them.",
+          ),
         ),
       );
       await Geolocator.openLocationSettings();
@@ -40,8 +42,6 @@ class _Intro4LocationScreenState extends State<Intro4LocationScreen> {
       // ✅ Print location to console
       print("✅ Latitude: ${position.latitude}");
       print("✅ Longitude: ${position.longitude}");
-      print("✅ Longitude");
-
     } else if (permission == PermissionStatus.denied) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("❌ Location permission denied.")),
@@ -49,7 +49,9 @@ class _Intro4LocationScreenState extends State<Intro4LocationScreen> {
     } else if (permission == PermissionStatus.permanentlyDenied) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("⚠️ Location permission permanently denied. Open settings to allow."),
+          content: Text(
+            "⚠️ Location permission permanently denied. Open settings to allow.",
+          ),
         ),
       );
       await openAppSettings();
@@ -59,13 +61,16 @@ class _Intro4LocationScreenState extends State<Intro4LocationScreen> {
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
-      backgroundColor: isDarkMode ? Colors.black : Colors.white,
+      //  backgroundColor: const Color(0xFFEAF6FF), // Light blue background
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/images/intro3.png', height: 370, fit: BoxFit.contain),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.50,
+            width: double.infinity,
+            child: Image.asset("assets/images/intodu3.PNG", fit: BoxFit.cover),
+          ),
           const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -76,14 +81,15 @@ class _Intro4LocationScreenState extends State<Intro4LocationScreen> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: isDarkMode ? Colors.white : Colors.black,
+                    color: isDarkMode ? Colors.white : Colors.blue[900],
                   ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  AppLocalizations.of(context)!
-                      .to_continues_let_your_device_turn_on_location_which_uses_googles_location_service,
+                  AppLocalizations.of(
+                    context,
+                  )!.to_continues_let_your_device_turn_on_location_which_uses_googles_location_service,
                   style: TextStyle(
                     fontSize: 14,
                     color: isDarkMode ? Colors.grey[300] : Colors.grey[600],
@@ -101,7 +107,7 @@ class _Intro4LocationScreenState extends State<Intro4LocationScreen> {
                 ElevatedButton(
                   onPressed: () => _enableLocation(context),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.teal,
+                    backgroundColor: Colors.blue[900],
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),
                     ),
@@ -116,12 +122,15 @@ class _Intro4LocationScreenState extends State<Intro4LocationScreen> {
                     ),
                   ),
                 ),
-                 SizedBox(height: 20),
+                SizedBox(height: 20),
                 OutlinedButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginSelectionScreen()),
-                  ),
+                  onPressed:
+                      () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginSelectionScreen(),
+                        ),
+                      ),
                   style: OutlinedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),

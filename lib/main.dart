@@ -6,7 +6,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:servana/service/auth/authentication_service.dart';
 import 'package:servana/view/screens/section_1/splash_screen.dart';
+import 'package:servana/view/screens/section_2/Congra_screen.dart';
+import 'package:servana/view/screens/section_2/forgot_password_page.dart';
 import 'package:servana/view/screens/section_2/login_worker_screen.dart';
+import 'package:servana/view/screens/section_2/rest_password_screen.dart';
 import 'package:servana/view/screens/section_3/home_screen.dart';
 import 'controller/lang_controller.dart';
 import 'controller/login_controller.dart';
@@ -96,11 +99,11 @@ class _MyAppState extends State<MyApp> {
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: themeProvider.themeMode,
-     //   home:  SplashScreen(),
-       home:  HomeScreen(),
+    //   home:  SplashScreen(),
+     home:  HomeScreen(),
 
 
-     //  home:  LoginWorkerScreen(),
+      // home: CongraScreen(),
 
 
         );

@@ -263,5 +263,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gardner => 'Gardner';
 
   @override
+  String get cleaning => 'Cleaning';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get gender => 'Gender';
+
+  @override
   String get paint => 'Paint';
 }

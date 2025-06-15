@@ -26,7 +26,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/servana2.png"),
+                image: AssetImage("assets/images/Servana_signup.png"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -98,7 +98,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         child: Text(
                           AppLocalizations.of(context)!.login,
                           style: TextStyle(
-                            color: Colors.teal,
+                            color: Colors.blue[900],
                             fontSize: 11,
                             fontWeight: FontWeight.bold,
                           ),
@@ -163,7 +163,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal,
+                      backgroundColor: Colors.blue[900],
                       padding: EdgeInsets.symmetric(
                         horizontal: 60,
                         vertical: 9,

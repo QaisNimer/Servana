@@ -42,14 +42,14 @@ class _PlumingScreenState extends State<PlumingScreen> {
             Text(
               "Plumbers ",
               style: TextStyle(
-                color: Colors.teal,
+                color: Colors.blue[900],
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
               ),
             ),
             IconButton(
               onPressed: () {},
-              icon: Icon(Icons.notifications, color: Colors.teal, size: 32),
+              icon: Icon(Icons.notifications, color: Colors.blue[900], size: 32),
             ),
           ],
         ),
@@ -84,7 +84,7 @@ class _PlumingScreenState extends State<PlumingScreen> {
                   filled: true,
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 25),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.center,
               //   children: [
@@ -98,7 +98,6 @@ class _PlumingScreenState extends State<PlumingScreen> {
               //     ),
               //   ],
               // ),
-              SizedBox(height: 15),
               SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -112,13 +111,13 @@ class _PlumingScreenState extends State<PlumingScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => RatingScreen(),
+                            builder: (context) => RequestScreen(),
                           ),
                         );
                       },
                       price: "30",
                     ),
-                    SizedBox(height: 13),
+                    SizedBox(height: 9),
                     PlumingWidget(
                       title: "Amanda Wood",
                       description: "Request? ",
@@ -134,7 +133,7 @@ class _PlumingScreenState extends State<PlumingScreen> {
                       },
                       price: "30",
                     ),
-                    SizedBox(height: 13),
+                    SizedBox(height: 9),
 
                     PlumingWidget(
                       title: "James Clark",
@@ -151,7 +150,7 @@ class _PlumingScreenState extends State<PlumingScreen> {
                       },
                       price: "30",
                     ),
-                    SizedBox(height: 13),
+                    SizedBox(height: 9),
 
                     PlumingWidget(
                       title: "Kristin Waston",

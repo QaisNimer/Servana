@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../l10n/app_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
 import 'package:provider/provider.dart';
 import 'package:servana/view/screens/section_2/rest_password_screen.dart';
 import 'package:servana/view/screens/section_2/signup_client_screen.dart';
@@ -10,8 +9,6 @@ import '../../../model/auth_model/sign_model.dart';
 import '../../../service/auth/authentication_service.dart';
 import '../../widgets/input_widget.dart';
 import '../section_3/home_screen.dart';
-
-
 
 class LoginClientScreen extends StatefulWidget {
   const LoginClientScreen({super.key});
@@ -24,7 +21,6 @@ class _LoginClientScreenState extends State<LoginClientScreen> {
   final TextEditingController emailTextEditingController = TextEditingController();
   final TextEditingController passTextEditingController = TextEditingController();
   bool rememberMe = false;
-
   final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
   @override
@@ -55,10 +51,7 @@ class _LoginClientScreenState extends State<LoginClientScreen> {
       await secureStorage.write(key: 'email', value: email);
       await secureStorage.write(key: 'rememberLoginCount', value: '0');
     } else {
-      await secureStorage.delete(key: 'rememberMe');
-      await secureStorage.delete(key: 'userId');
-      await secureStorage.delete(key: 'email');
-      await secureStorage.delete(key: 'rememberLoginCount');
+      await secureStorage.deleteAll();
     }
   }
 
@@ -66,36 +59,34 @@ class _LoginClientScreenState extends State<LoginClientScreen> {
   Widget build(BuildContext context) {
     final loginController = Provider.of<LoginController>(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final topPadding = 230.0;
+    final topPadding = MediaQuery.of(context).size.height * 0.3;
 
     return Scaffold(
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/servana2.png"),
+            image: AssetImage("assets/images/Servana_login.png"),
             fit: BoxFit.cover,
           ),
         ),
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.only(top: topPadding, left: 20, right: 20, bottom: 12),
+            padding: EdgeInsets.only(top: topPadding, left: 20, right: 20, bottom: 20),
             child: Center(
               child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: 500),
+                constraints: const BoxConstraints(maxWidth: 500),
                 child: Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: isDark
-                        ? Colors.grey[900]!.withOpacity(0.85)
-                        : Colors.white.withOpacity(0.85),
-                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white.withOpacity(0.83),
+                    borderRadius: BorderRadius.circular(24),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.2),
                         blurRadius: 10,
-                        offset: Offset(0, 5),
+                        offset: const Offset(0, 5),
                       ),
                     ],
                   ),
@@ -104,11 +95,11 @@ class _LoginClientScreenState extends State<LoginClientScreen> {
                     children: [
                       Text(
                         AppLocalizations.of(context)!.login,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 30,
                           fontWeight: FontWeight.w700,
-                          color: isDark ? Colors.white : Colors.black,
+                          color: Color(0xFF0D47A1), // Same as Colors.blue[900]
                         ),
                       ),
                       Row(
@@ -116,10 +107,9 @@ class _LoginClientScreenState extends State<LoginClientScreen> {
                         children: [
                           Text(
                             AppLocalizations.of(context)!.dont_have_an_account,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w400,
-                              color: isDark ? Colors.white : Colors.black,
                             ),
                           ),
                           TextButton(
@@ -129,10 +119,10 @@ class _LoginClientScreenState extends State<LoginClientScreen> {
                                 MaterialPageRoute(builder: (context) => SignUpScreen()),
                               );
                             },
-                            child: Text(
-                              AppLocalizations.of(context)!.sign_up,
+                            child: const Text(
+                              "Sign Up",
                               style: TextStyle(
-                                color: Colors.teal,
+                                color: Color(0xFF0D47A1), // Same as Colors.blue[900]
                                 fontSize: 15,
                               ),
                             ),
@@ -146,7 +136,7 @@ class _LoginClientScreenState extends State<LoginClientScreen> {
                             obscureText: false,
                             textEditingController: emailTextEditingController,
                             label: AppLocalizations.of(context)!.email,
-                            hintText: "Loisbakit@gmail.com",
+                            hintText: "you@example.com",
                             errorText: loginController.showErrorEmail
                                 ? loginController.errorEmailMessage
                                 : null,
@@ -160,10 +150,9 @@ class _LoginClientScreenState extends State<LoginClientScreen> {
                             controller: passTextEditingController,
                             obscureText: loginController.obscureTextPassword,
                             decoration: InputDecoration(
-                              filled: true,
-                              fillColor: isDark ? Colors.grey[800] : Colors.white,
+                            //  filled: true,
+                           //   fillColor: Colors.white,
                               labelText: AppLocalizations.of(context)!.password,
-                              labelStyle: TextStyle(color: isDark ? Colors.white : null),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
@@ -173,14 +162,13 @@ class _LoginClientScreenState extends State<LoginClientScreen> {
                                   loginController.obscureTextPassword
                                       ? Icons.visibility
                                       : Icons.visibility_off,
-                                  color: isDark ? Colors.white : null,
+                                  color: Colors.grey,
                                 ),
                               ),
                               errorText: loginController.showErrorPassword
                                   ? loginController.errorPasswordMessage
                                   : null,
                             ),
-                            style: TextStyle(color: isDark ? Colors.white : Colors.black),
                           );
                         },
                       ),
@@ -200,14 +188,13 @@ class _LoginClientScreenState extends State<LoginClientScreen> {
                                       rememberMe = value!;
                                     });
                                   },
-                                  activeColor: Colors.teal,
+                                  activeColor:  Color(0xFF0D47A1),
                                 ),
                               ),
                               const SizedBox(width: 8),
-                              Text(
-                                AppLocalizations.of(context)!.remember_me,
+                              const Text(
+                                "Remember Me",
                                 style: TextStyle(
-                                  color: isDark ? Colors.white : Colors.black,
                                   fontSize: 14,
                                 ),
                               ),
@@ -220,10 +207,10 @@ class _LoginClientScreenState extends State<LoginClientScreen> {
                                 MaterialPageRoute(builder: (context) => ResetPasswordScreen()),
                               );
                             },
-                            child: Text(
-                              AppLocalizations.of(context)!.forgot_password,
+                            child: const Text(
+                              "Forgot Password?",
                               style: TextStyle(
-                                color: Colors.teal,
+                                color: Color(0xFF0D47A1),
                                 fontSize: 14,
                               ),
                             ),
@@ -233,7 +220,8 @@ class _LoginClientScreenState extends State<LoginClientScreen> {
                       const SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () async {
-                          if (emailTextEditingController.text.isEmpty || passTextEditingController.text.isEmpty) {
+                          if (emailTextEditingController.text.isEmpty ||
+                              passTextEditingController.text.isEmpty) {
                             loginController.showCustomEmailError("Please enter both email and password");
                             return;
                           }
@@ -265,14 +253,14 @@ class _LoginClientScreenState extends State<LoginClientScreen> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.teal,
-                          minimumSize: Size(double.infinity, 45),
+                          backgroundColor: const Color(0xFF0D47A1),
+                          minimumSize: const Size(double.infinity, 45),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(20),
                           ),
                         ),
-                        child: Text(
-                          AppLocalizations.of(context)!.login,
+                        child: const Text(
+                          "Login",
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -280,7 +268,6 @@ class _LoginClientScreenState extends State<LoginClientScreen> {
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ),

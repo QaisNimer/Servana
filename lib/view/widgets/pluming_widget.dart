@@ -26,11 +26,18 @@ class PlumingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 370,
-      margin: const EdgeInsets.only(right: 10),
+      margin: const EdgeInsets.only(right: 10, bottom: 12),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.teal),
+        color: Colors.blue[50],// soft sky blue
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.07),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,31 +58,32 @@ class PlumingWidget extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
+                    color: Colors.black87,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 6),
 
-                // ⭐ Rating with 5 stars
+                // ⭐ Rating
                 Row(
                   children: [
                     RatingBarIndicator(
-                      rating: rating, // pass your double rating value here
-                      itemBuilder: (context, index) => Icon(
+                      rating: rating,
+                      itemBuilder: (context, index) => const Icon(
                         Icons.star,
                         color: Colors.orange,
                       ),
                       itemCount: 5,
-                      itemSize: 23.0,
+                      itemSize: 20.0,
                       direction: Axis.horizontal,
                     ),
                     const SizedBox(width: 6),
                     Text(
                       rating.toStringAsFixed(1),
                       style: const TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -86,11 +94,11 @@ class PlumingWidget extends StatelessWidget {
 
                 // 💵 Price
                 Text(
-                  '\$ $price/hr',
+                  'JD $price/hr',
                   style: const TextStyle(
-                    fontSize: 19,
+                    fontSize: 17,
                     fontWeight: FontWeight.w600,
-                    color: Colors.teal,
+                    color: Color(0xFF0D47A1),
                   ),
                 ),
               ],
@@ -99,10 +107,10 @@ class PlumingWidget extends StatelessWidget {
 
           const SizedBox(width: 10),
 
-          // 📞 Phone + WhatsApp + Description button
+          // 📞 Contact and Description
           Column(
             children: [
-              // 📞 Phone button
+              // 📞 Phone
               InkWell(
                 onTap: onPressed,
                 borderRadius: BorderRadius.circular(30),
@@ -111,13 +119,13 @@ class PlumingWidget extends StatelessWidget {
                   child: Icon(
                     Icons.phone,
                     color: Colors.green,
-                    size: 32,
+                    size: 28,
                   ),
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 6),
 
-              // 🟢 WhatsApp icon
+              // 🟢 WhatsApp
               InkWell(
                 onTap: () async {
                   if (whatsappNumber != null) {
@@ -144,14 +152,14 @@ class PlumingWidget extends StatelessWidget {
                 },
                 child: Image.asset(
                   'assets/images/whatsapp.jpg',
-                  width: 32,
-                  height: 32,
+                  width: 28,
+                  height: 28,
                 ),
               ),
 
-              const SizedBox(height: 4),
+              const SizedBox(height: 6),
 
-              // 🟠 Description Button
+              // 🟠 Description
               TextButton(
                 onPressed: onPressed,
                 style: TextButton.styleFrom(
@@ -162,8 +170,8 @@ class PlumingWidget extends StatelessWidget {
                 child: Text(
                   description,
                   style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.orange,
+                    fontSize: 13,
+                    color: Color(0xFF0D47A1),
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),

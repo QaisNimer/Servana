@@ -1,89 +1,138 @@
 import 'package:flutter/material.dart';
-import 'login_client_screen.dart';
-import 'login_worker_screen.dart';
+import 'package:servana/view/screens/section_2/login_client_screen.dart';
+import 'package:servana/view/screens/section_2/login_worker_screen.dart';
 
 class LoginSelectionScreen extends StatelessWidget {
   const LoginSelectionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      body: Stack(
-        children: [
-          // Background image
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/Worker&client.png"),
+      backgroundColor: const Color(0xFFEAF6FF),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Top Illustration
+            SizedBox(
+              height: size.height * 0.45,
+              width: double.infinity,
+              child: Image.asset(
+                "assets/images/wo&clie.png",
                 fit: BoxFit.cover,
               ),
             ),
-          ),
 
-          // Centered dialog-like buttons
-          Center(
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 30),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.9),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                    "Are You Client Or Worker?",
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+            // Bottom Container
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 25,
+                ),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(35),
+                    topRight: Radius.circular(35),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 10,
+                      offset: Offset(0, -4),
                     ),
-                  ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    "Please select one of the following:",
-                    style: TextStyle(fontSize: 15, color: Colors.black),
-                  ),
-                  const SizedBox(height: 25),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0x4FA7CDFF),
-                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Welcome! Are you a client or worker?",
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
                       ),
+                      textAlign: TextAlign.center,
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const LoginClientScreen()),
-                      );
-                    },
-                    child: const Text("Login as Client"),
-                  ),
-                  const SizedBox(height: 15),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orangeAccent,
-                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                    const SizedBox(height: 12),
+                    const Text(
+                      "Please choose one of the options below.",
+                      style: TextStyle(fontSize: 15, color: Colors.grey),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 35),
+
+                    // Client Button
+                    ElevatedButton.icon(
+                      icon: const Icon(
+                        Icons.person_outline,
+                        color: Colors.black87,
                       ),
+                      label: const Text(
+                        "Login as Client",
+                        style: TextStyle(fontSize: 16, color: Colors.black87),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFDCEFFF),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 14,
+                          horizontal: 20,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        minimumSize: const Size(double.infinity, 50),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginClientScreen(),
+                          ),
+                        );
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const LoginWorkerScreen()),
-                      );
-                    },
-                    child: const Text("Login as Worker"),
-                  ),
-                ],
+                    const SizedBox(height: 20),
+
+                    // Worker Button
+                    ElevatedButton.icon(
+                      icon: const Icon(
+                        Icons.build_outlined,
+                        color: Colors.white,
+                      ),
+                      label: const Text(
+                        "Login as Worker",
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orangeAccent,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 14,
+                          horizontal: 20,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        minimumSize: const Size(double.infinity, 50),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginWorkerScreen(),
+                          ),
+                        );                      },
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

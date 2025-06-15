@@ -9,6 +9,8 @@ import '../../../l10n/app_localizations.dart';
 import '../../widgets/signup_widget.dart';
 import 'login_client_screen.dart';
 
+enum Gender { male, female }
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -26,6 +28,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   bool _isPasswordVisible = false;
   String? _backendFormattedDate;
+  Gender? _selectedGender;
 
   Future<void> _registerUser(BuildContext context) async {
     if (_firstNameController.text.isEmpty ||
@@ -33,8 +36,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         _emailController.text.isEmpty ||
         _dateController.text.isEmpty ||
         _phoneController.text.isEmpty ||
-        _passwordController.text.isEmpty) {
-      _showErrorDialog(context, 'Please fill in all required fields');
+        _passwordController.text.isEmpty ||
+        _selectedGender == null) {
+      _showErrorDialog(context, 'Please fill in all required fields and select gender');
       return;
     }
 
@@ -46,9 +50,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
       firstname: _firstNameController.text,
       lastname: _lastNameController.text,
       birthDate: _backendFormattedDate,
+      gender: _selectedGender == Gender.male ? "Male" : "Female",
     );
 
-    log('Sending user data with birthDate: ${user.birthDate}');
+    log('Sending user data with birthDate: ${user.birthDate}, gender: ${user.gender}');
     final success = await signUpController.registerUser(user);
 
     if (success) {
@@ -87,7 +92,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/servana2.png"),
+                image: AssetImage("assets/images/Servana_signup.png"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -95,7 +100,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(height: 80),
+                const SizedBox(height: 90),
                 const SizedBox(height: 100),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -104,10 +109,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     color: isDark
                         ? Colors.grey[900]!.withOpacity(0.85)
                         : Colors.white.withOpacity(0.85),
-
                     borderRadius: BorderRadius.circular(20),
                   ),
-
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -119,7 +122,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(AppLocalizations.of(context)!.already_have_an_account),
                           TextButton(
@@ -133,7 +135,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               AppLocalizations.of(context)!.login,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.teal,
+                                color: Color(0xFF0D47A1),
                               ),
                             ),
                           ),
@@ -163,6 +165,42 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         labelText: AppLocalizations.of(context)!.email,
                         keyboardType: TextInputType.emailAddress,
                         suffixIcon: const Icon(Icons.email),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        AppLocalizations.of(context)!.gender,
+                     //   "Gender",
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: RadioListTile<Gender>(
+                              title: Text(AppLocalizations.of(context)!.male),
+                             // title: Text("Male"),
+                              value: Gender.male,
+                              groupValue: _selectedGender,
+                              onChanged: (Gender? value) {
+                                setState(() {
+                                  _selectedGender = value;
+                                });
+                              },
+                            ),
+                          ),
+                          Expanded(
+                            child: RadioListTile<Gender>(
+                              title: Text(AppLocalizations.of(context)!.female),
+                            //  title: Text("Female"),
+                              value: Gender.female,
+                              groupValue: _selectedGender,
+                              onChanged: (Gender? value) {
+                                setState(() {
+                                  _selectedGender = value;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                       CustomTextField(
                         controller: _dateController,
@@ -214,7 +252,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ? const Center(child: CircularProgressIndicator())
                           : ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.teal,
+                          backgroundColor: Colors.blue[900],
                           minimumSize: const Size(double.infinity, 50),
                         ),
                         onPressed: () => _registerUser(context),

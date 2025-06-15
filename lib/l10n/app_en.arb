@@ -79,5 +79,9 @@
   "pluming": "Pluming ",
   "electrical": "Electrical",
   "gardner": "Gardner",
+  "cleaning": "Cleaning",
+  "male": "Male",
+  "female": "Female",
+  "gender": "Gender",
   "paint": "Paint"
 }

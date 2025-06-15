@@ -2,13 +2,14 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:servana/view/screens/section_2/login_worker_screen.dart';
 
 import '../../../controller/signup_controller.dart';
 import '../../../model/auth_model/signup_model.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../widgets/signup_widget.dart';
 import 'login_client_screen.dart';
+
+enum Gender { male, female }
 
 class SignupWorkerScreen extends StatefulWidget {
   const SignupWorkerScreen({super.key});
@@ -27,6 +28,8 @@ class _SignupWorkerScreenState extends State<SignupWorkerScreen> {
 
   bool _isPasswordVisible = false;
   String? _backendFormattedDate;
+  Gender? _selectedGender;
+  String? _selectedProfession;
 
   Future<void> _registerUser(BuildContext context) async {
     if (_firstNameController.text.isEmpty ||
@@ -34,8 +37,13 @@ class _SignupWorkerScreenState extends State<SignupWorkerScreen> {
         _emailController.text.isEmpty ||
         _dateController.text.isEmpty ||
         _phoneController.text.isEmpty ||
-        _passwordController.text.isEmpty) {
-      _showErrorDialog(context, 'Please fill in all required fields');
+        _passwordController.text.isEmpty ||
+        _selectedGender == null ||
+        _selectedProfession == null) {
+      _showErrorDialog(
+        context,
+        'Please fill in all required fields and select gender and profession',
+      );
       return;
     }
 
@@ -50,15 +58,19 @@ class _SignupWorkerScreenState extends State<SignupWorkerScreen> {
       firstname: _firstNameController.text,
       lastname: _lastNameController.text,
       birthDate: _backendFormattedDate,
+      gender: _selectedGender == Gender.male ? "Male" : "Female",
+      // You can add: profession: _selectedProfession if backend supports it
     );
 
-    log('Sending user data with birthDate: ${user.birthDate}');
+    log(
+      'Sending user data with birthDate: ${user.birthDate}, gender: ${user.gender}, profession: $_selectedProfession',
+    );
     final success = await signUpController.registerUser(user);
 
     if (success) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LoginWorkerScreen()),
+        MaterialPageRoute(builder: (context) => LoginClientScreen()),
       );
     } else {
       _showErrorDialog(context, signUpController.errorMessage);
@@ -92,7 +104,7 @@ class _SignupWorkerScreenState extends State<SignupWorkerScreen> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/servana_worker.png"),
+                image: AssetImage("assets/images/signup_worker.png"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -100,16 +112,16 @@ class _SignupWorkerScreenState extends State<SignupWorkerScreen> {
           SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(height: 100),
-                const SizedBox(height: 140),
+                const SizedBox(height: 50),
+                const SizedBox(height: 80),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: isDark
-                        ? Colors.grey[900]!.withOpacity(0.85)
-                        : Colors.white.withOpacity(0.85),
-
+                    color:
+                        isDark
+                            ? Colors.grey[900]!.withOpacity(0.85)
+                            : Colors.white.withOpacity(0.85),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Column(
@@ -123,7 +135,6 @@ class _SignupWorkerScreenState extends State<SignupWorkerScreen> {
                         ),
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
                             AppLocalizations.of(
@@ -135,7 +146,7 @@ class _SignupWorkerScreenState extends State<SignupWorkerScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => LoginWorkerScreen(),
+                                  builder: (context) => LoginClientScreen(),
                                 ),
                               );
                             },
@@ -143,13 +154,13 @@ class _SignupWorkerScreenState extends State<SignupWorkerScreen> {
                               AppLocalizations.of(context)!.login,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.teal,
+                                color: Color(0xFF0D47A1),
                               ),
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 7),
                       Row(
                         children: [
                           Expanded(
@@ -169,12 +180,45 @@ class _SignupWorkerScreenState extends State<SignupWorkerScreen> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 7),
                       CustomTextField(
                         controller: _emailController,
                         labelText: AppLocalizations.of(context)!.email,
                         keyboardType: TextInputType.emailAddress,
                         suffixIcon: const Icon(Icons.email),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        "Gender",
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: RadioListTile<Gender>(
+                              title: Text("Male"),
+                              value: Gender.male,
+                              groupValue: _selectedGender,
+                              onChanged: (Gender? value) {
+                                setState(() {
+                                  _selectedGender = value;
+                                });
+                              },
+                            ),
+                          ),
+                          Expanded(
+                            child: RadioListTile<Gender>(
+                              title: Text("Female"),
+                              value: Gender.female,
+                              groupValue: _selectedGender,
+                              onChanged: (Gender? value) {
+                                setState(() {
+                                  _selectedGender = value;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                       CustomTextField(
                         controller: _dateController,
@@ -208,6 +252,54 @@ class _SignupWorkerScreenState extends State<SignupWorkerScreen> {
                         ),
                       ),
                       PhoneInputField(controller: _phoneController),
+                      const SizedBox(height: 10),
+                      Text(
+                        "Profession",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                      ),
+                      DropdownButtonFormField<String>(
+                        value: _selectedProfession,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          filled: true,
+                          fillColor:
+                              isDark ? Colors.grey[800] : Colors.grey[200],
+                        ),
+                        hint: const Text("Select your profession"),
+                        items: const [
+                          DropdownMenuItem(
+                            value: "Plumber",
+                            child: Text("Plumber"),
+                          ),
+                          DropdownMenuItem(
+                            value: "Electrician",
+                            child: Text("Electrician"),
+                          ),
+                          DropdownMenuItem(
+                            value: "Gardner",
+                            child: Text("Gardner"),
+                          ),
+                          DropdownMenuItem(
+                            value: "Painter",
+                            child: Text("Painter"),
+                          ),
+                          DropdownMenuItem(
+                            value: "Cleaning",
+                            child: Text("Cleaning"),
+                          ),
+                        ],
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedProfession = value;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 7),
                       CustomTextField(
                         controller: _passwordController,
                         labelText: AppLocalizations.of(context)!.set_password,
@@ -225,12 +317,12 @@ class _SignupWorkerScreenState extends State<SignupWorkerScreen> {
                           },
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 10),
                       signUpController.isLoading
                           ? const Center(child: CircularProgressIndicator())
                           : ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.teal,
+                              backgroundColor: Colors.blue[900],
                               minimumSize: const Size(double.infinity, 50),
                             ),
                             onPressed: () => _registerUser(context),
@@ -242,7 +334,6 @@ class _SignupWorkerScreenState extends State<SignupWorkerScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 40),
               ],
             ),
           ),

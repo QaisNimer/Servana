@@ -33,14 +33,14 @@ class _CongraScreenState extends State<CongraScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              "assets/images/bg_of_congra.png",
+              "assets/images/Capture.PNG",
               fit: BoxFit.cover,
             ),
           ),
 
           Positioned.fill(
             child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+              filter: ImageFilter.blur(sigmaX: 13, sigmaY: 13),
               child: Container(color: Colors.black.withOpacity(0.2)),
             ),
           ),
@@ -50,7 +50,7 @@ class _CongraScreenState extends State<CongraScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Image.asset(
-                  "assets/images/Congra.png",
+                  "assets/images/congrats.png",
                   width: 450,
                   height: 450,
                 ),
@@ -60,13 +60,13 @@ class _CongraScreenState extends State<CongraScreen> {
                   style: TextStyle(
                     fontSize: 33,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Colors.blue[900],
                   ),
                 ),
-
+SizedBox(height: 10,),
                 Text(
                   AppLocalizations.of(context)!.password_reset_successfully,
-                  style: TextStyle(fontSize: 20, color: Colors.white70),
+                  style: TextStyle(fontSize: 20, color: Colors.blue[900]),
                 ),
 
                 SizedBox(height: 30),

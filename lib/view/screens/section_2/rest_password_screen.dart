@@ -21,7 +21,7 @@ class ResetPasswordScreen extends StatelessWidget {
             height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/servana2.png"),
+                image: AssetImage("assets/images/Servana_signup.png"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -34,9 +34,10 @@ class ResetPasswordScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(20),
                   width: MediaQuery.of(context).size.width * 0.85,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.grey[900]
-                        : Colors.white,
+                    color:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Colors.grey[900]
+                            : Colors.white,
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Column(
@@ -48,44 +49,56 @@ class ResetPasswordScreen extends StatelessWidget {
                         onTap: () {
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (context) =>  LoginClientScreen()),
+                            MaterialPageRoute(
+                              builder: (context) => LoginClientScreen(),
+                            ),
                           );
                         },
                         child: Row(
                           children: [
                             Icon(
                               Icons.arrow_back,
-                              color: Theme.of(context).brightness == Brightness.dark
-                                  ? Colors.white70
-                                  : Colors.black54,
+                              color:
+                                  Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white70
+                                      : Colors.black54,
                             ),
                             const SizedBox(width: 5),
                             RichText(
                               text: TextSpan(
                                 text: AppLocalizations.of(context)!.back_to,
                                 style: TextStyle(
-                                  color: Theme.of(context).brightness == Brightness.dark
-                                      ? Colors.white70
-                                      : Colors.black54,
+                                  color:
+                                      Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white70
+                                          : Colors.black54,
                                 ),
                                 children: <TextSpan>[
                                   const TextSpan(text: " "),
                                   TextSpan(
                                     text: AppLocalizations.of(context)!.login,
-                                    style: const TextStyle(color: Colors.teal),
+                                    style: const TextStyle(
+                                      color: Color(
+                                        0xFF0D47A1,
+                                      ), // Same as Colors.blue[900]
+                                    ),
                                   ),
                                   const TextSpan(text: " "),
                                   TextSpan(
                                     text: AppLocalizations.of(context)!.page,
                                     style: TextStyle(
-                                      color: Theme.of(context).brightness == Brightness.dark
-                                          ? Colors.white70
-                                          : Colors.black54,
+                                      color:
+                                          Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white70
+                                              : Colors.black54,
                                     ),
                                   ),
                                 ],
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -96,19 +109,23 @@ class ResetPasswordScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.black,
+                          color:
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
                         ),
                       ),
                       const SizedBox(height: 10),
                       // Instruction text
                       Text(
-                        AppLocalizations.of(context)!.enter_your_email_or_phone_and_we_will_send_you_a_link_to_get_back_into_your_account,
+                        AppLocalizations.of(
+                          context,
+                        )!.enter_your_email_or_phone_and_we_will_send_you_a_link_to_get_back_into_your_account,
                         style: TextStyle(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white70
-                              : Colors.black54,
+                          color:
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white70
+                                  : Colors.black54,
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -130,52 +147,72 @@ class ResetPasswordScreen extends StatelessWidget {
                         height: 45,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.teal,
+                            backgroundColor: Colors.blue[900],
                           ),
-                          onPressed: authService.isLoading
-                              ? null
-                              : () async {
-                            final email = emailController.text.trim();
-                            debugPrint("Email entered: $email");
+                          onPressed:
+                              authService.isLoading
+                                  ? null
+                                  : () async {
+                                    final email = emailController.text.trim();
+                                    debugPrint("Email entered: $email");
 
-                            if (email.isEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Please enter your email'),
-                                  backgroundColor: Colors.red,
-                                ),
-                              );
-                              return;
-                            }
+                                    if (email.isEmpty) {
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                            'Please enter your email',
+                                          ),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                      return;
+                                    }
 
-                            final resetData = ResetPasswordModel(email: email);
-                            debugPrint("Sending JSON: ${jsonEncode(resetData.toJson())}");
+                                    final resetData = ResetPasswordModel(
+                                      email: email,
+                                    );
+                                    debugPrint(
+                                      "Sending JSON: ${jsonEncode(resetData.toJson())}",
+                                    );
 
-                            final success = await authService.resetPassword(resetData);
+                                    final success = await authService
+                                        .resetPassword(resetData);
 
-                            if (success) {
-                              // Navigate to OTP screen if successful
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => OTPScreen(email: email,),
-                                ),
-                              );
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(authService.errorMessage ?? 'Error occurred'),
-                                  backgroundColor: Colors.red,
-                                ),
-                              );
-                            }
-                          },
-                          child: authService.isLoading
-                              ? const CircularProgressIndicator(color: Colors.white)
-                              : Text(
-                            AppLocalizations.of(context)!.btn_send,
-                            style: const TextStyle(color: Colors.white),
-                          ),
+                                    if (success) {
+                                      // Navigate to OTP screen if successful
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder:
+                                              (context) =>
+                                                  OTPScreen(email: email),
+                                        ),
+                                      );
+                                    } else {
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            authService.errorMessage ??
+                                                'Error occurred',
+                                          ),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                    }
+                                  },
+                          child:
+                              authService.isLoading
+                                  ? const CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )
+                                  : Text(
+                                    AppLocalizations.of(context)!.btn_send,
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
                         ),
                       ),
                     ],

@@ -78,7 +78,7 @@ class _LoginWorkerScreenState extends State<LoginWorkerScreen> {
         height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/servana_worker.png"),
+            image: AssetImage("assets/images/Servana_login.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -142,7 +142,7 @@ class _LoginWorkerScreenState extends State<LoginWorkerScreen> {
                             child: Text(
                               AppLocalizations.of(context)!.sign_up,
                               style: TextStyle(
-                                color: Colors.teal,
+                                color: Colors.blue[900],
                                 fontSize: 15,
                               ),
                             ),
@@ -210,7 +210,7 @@ class _LoginWorkerScreenState extends State<LoginWorkerScreen> {
                                       rememberMe = value!;
                                     });
                                   },
-                                  activeColor: Colors.teal,
+                                  activeColor: Colors.blue[900],
                                 ),
                               ),
                               const SizedBox(width: 8),
@@ -233,7 +233,7 @@ class _LoginWorkerScreenState extends State<LoginWorkerScreen> {
                             child: Text(
                               AppLocalizations.of(context)!.forgot_password,
                               style: TextStyle(
-                                color: Colors.teal,
+                                color: Colors.blue[900],
                                 fontSize: 14,
                               ),
                             ),
@@ -275,7 +275,7 @@ class _LoginWorkerScreenState extends State<LoginWorkerScreen> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.teal,
+                          backgroundColor: Colors.blue[900],
                           minimumSize: Size(double.infinity, 45),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),

@@ -41,14 +41,14 @@ class _PaintScreenState extends State<PaintScreen> {
             Text(
               "Painters",
               style: TextStyle(
-                color: Colors.teal,
+                color: Colors.blue[900],
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
               ),
             ),
             IconButton(
               onPressed: () {},
-              icon: Icon(Icons.notifications, color: Colors.teal, size: 32),
+              icon: Icon(Icons.notifications, color: Colors.blue[900], size: 32),
             ),
           ],
         ),

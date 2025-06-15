@@ -263,5 +263,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String get gardner => 'البستاني';
 
   @override
+  String get cleaning => 'تنظيف';
+
+  @override
+  String get male => 'ذكر';
+
+  @override
+  String get female => 'أنثى';
+
+  @override
+  String get gender => 'الجنس';
+
+  @override
   String get paint => 'الدهان';
 }

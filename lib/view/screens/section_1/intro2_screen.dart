@@ -20,7 +20,8 @@ class _Intro2ScreenState extends State<Intro2Screen> {
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDarkMode ? Colors.black : Colors.white,
+      backgroundColor: const Color(0xFFEAF6FF), // Light blue background
+
       body: Column(
         children: [
           Expanded(
@@ -29,21 +30,35 @@ class _Intro2ScreenState extends State<Intro2Screen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("assets/images/intro2.png", height: 370),
-                  SizedBox(height: 20),
+                SizedBox(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.5,
+                child: Transform.scale(
+                  scale: 1.25, // try 1.2 - 1.4
+                  child: Image.asset(
+                    "assets/images/intodu2.png",
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+
+                  SizedBox(height: 25),
                   Text(
-                    AppLocalizations.of(context)!.receive_professional_help_on_time,
+                    AppLocalizations.of(
+                      context,
+                    )!.receive_professional_help_on_time,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: isDarkMode ? Colors.white : Colors.black,
+                      color: isDarkMode ? Colors.white : Colors.blue[900],
                     ),
                   ),
                   SizedBox(height: 10),
                   Text(
-                    AppLocalizations.of(context)!
-                        .request_services_from_comfort_of_home,
+                    AppLocalizations.of(
+                      context,
+                    )!.request_services_from_comfort_of_home,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,
@@ -55,13 +70,17 @@ class _Intro2ScreenState extends State<Intro2Screen> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Intro4LocationScreen()),
+                        MaterialPageRoute(
+                          builder: (context) => Intro4LocationScreen(),
+                        ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal,
+                      backgroundColor: Colors.blue[900],
                       padding: EdgeInsets.symmetric(
-                          horizontal: 120, vertical: 12),
+                        horizontal: 120,
+                        vertical: 12,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
                       ),
@@ -85,14 +104,15 @@ class _Intro2ScreenState extends State<Intro2Screen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => Intro4LocationScreen()),
+                        builder: (context) => Intro4LocationScreen(),
+                      ),
                     );
                   },
                   child: Text(
                     "Skip",
                     style: TextStyle(
                       fontSize: 16,
-                      color: isDarkMode ? Colors.white : Colors.grey,
+                      color: isDarkMode ? Colors.white : Colors.blue[900],
                     ),
                   ),
                 ),
@@ -100,18 +120,23 @@ class _Intro2ScreenState extends State<Intro2Screen> {
                   controller: _controller,
                   count: 2,
                   effect: ExpandingDotsEffect(
-                    activeDotColor: Colors.teal,
+                    activeDotColor: Colors.blue[900]!,
                     dotHeight: 8,
                     dotWidth: 8,
                   ),
                 ),
                 IconButton(
                   icon: Icon(
-                      Icons.arrow_forward, color: Colors.teal, size: 28),
+                    Icons.arrow_forward,
+                    color: Colors.blue[900],
+                    size: 28,
+                  ),
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Intro4LocationScreen()),
+                      MaterialPageRoute(
+                        builder: (context) => Intro4LocationScreen(),
+                      ),
                     );
                   },
                 ),

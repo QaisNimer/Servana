@@ -24,14 +24,14 @@ class BottonNavigationWidget extends StatelessWidget {
           children: [
             Icon(
               icon,
-              color: isSelected ? Colors.teal : Colors.grey,
+              color: isSelected ? Colors.blue[900] : Colors.grey,
             ),
             const SizedBox(height: 4),
             Text(
               label,
               style: TextStyle(
                 fontSize: 14,
-                color: isSelected ? Colors.teal : Colors.grey,
+                color: isSelected ? Colors.blue[900] : Colors.grey,
               ),
             ),
           ],

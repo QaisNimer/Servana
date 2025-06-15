@@ -33,8 +33,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
     final textColor = isDark ? Colors.white : Colors.black;
 
     return Scaffold(
+      //take color from alaa
+      backgroundColor:  Color(0xFFF5F5DC),
+
       appBar: AppBar(
-        backgroundColor: bgColor,
+        backgroundColor:  Color(0xFFF5F5DC),
         elevation: 0,
         automaticallyImplyLeading: false,
         //  titleSpacing: 0,
@@ -48,19 +51,19 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   MaterialPageRoute(builder: (context) => HomeScreen()),
                 );
               },
-              icon: Icon(Icons.arrow_back, color: Colors.teal, size: 32),
+              icon: Icon(Icons.arrow_back, color: Colors.blue[900], size: 32),
             ),
             Text(
               "History ",
               style: TextStyle(
-                color: Colors.teal,
+                color: Colors.blue[900],
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
               ),
             ),
             IconButton(
               onPressed: () {},
-              icon: Icon(Icons.notifications, color: Colors.teal, size: 32),
+              icon: Icon(Icons.notifications, color: Colors.blue[900], size: 32),
             ),
           ],
         ),
@@ -107,14 +110,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       price: "28",
                       description1: 'Plumber', date: '20/2/2025',
                     ),
-                    SizedBox(height: 13),
+                    SizedBox(height: 7),
                     HistoryWidget(
                       title: "Amanda Wood",
                       description: " Completed",
                       price: "30",
                       description1: 'Gardner', date: '10/4/2025',
                     ),
-                    SizedBox(height: 13),
+                    SizedBox(height: 7),
 
                     HistoryWidget(
                       title: "James Clark",
@@ -123,7 +126,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       description1: 'Painter',
                       description2: '', date: '10/5/2025',
                     ),
-                    SizedBox(height: 13),
+                    SizedBox(height: 7),
 
                     HistoryWidget(
                       title: "Kristin Waston",

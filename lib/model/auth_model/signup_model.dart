@@ -5,6 +5,7 @@ class SignUpModel {
   String? firstname;
   String? lastname;
   String? birthDate;
+  String? gender;
 
   SignUpModel({
     this.email,
@@ -13,6 +14,7 @@ class SignUpModel {
     this.firstname,
     this.lastname,
     this.birthDate,
+    this.gender,
   });
 
   SignUpModel.fromJson(Map<String, dynamic> json) {
@@ -22,6 +24,7 @@ class SignUpModel {
     firstname = json['firstname'];
     lastname = json['lastname'];
     birthDate = json['birthDate'];
+    gender = json['gender'];
   }
 
   Map<String, dynamic> toJson() {
@@ -32,6 +35,7 @@ class SignUpModel {
     data['firstname'] = firstname?.trim();
     data['lastname'] = lastname?.trim();
     data['birthDate'] = birthDate?.trim();
+    data['gender'] = gender?.trim();
     return data;
   }
 }

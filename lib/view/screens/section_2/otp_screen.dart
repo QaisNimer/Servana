@@ -80,7 +80,7 @@ class _OTPScreenState extends State<OTPScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/servana2.png',
+              'assets/images/Servana_signup.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -125,7 +125,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       height: 45,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.teal,
+                          backgroundColor: Colors.blue[900],
                         ),
                         onPressed: isLoading ? null : _verifyOtp,
                         child: isLoading
